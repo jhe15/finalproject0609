@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./js/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  
+</head>
+
+<body>
+
+ <div>
+  <span id="mySpan"></span>
+ </div>
+
+
+</body>
+
+</html>
+<script>
+
+var username = "am"
+ console.log(username);
+ 
+var span = document.getElementById('mySpan');
+
+     axios.get('https://api.github.com/users/'+username, {
+    params: {
+      client_id:'b9315bcd5a07fcd759d8',
+      client_secret:'a2b698bf7e7c02f898197cf136d1a41f704ca8e4'
+    }
+  })
+    .then(response => {
+      // 处理响应数据
+      var text = document.createTextNode(response.data.name);
+span.appendChild(text);
+      console.log(response.data.name, '请求的数据----第一个接口');
+    })
+    .catch(error => {
+      // 处理错误情况
+      console.error(error);
+    });
+
+  axios.get('https://api.github.com/users/' + username + '/repos', {
+    params: {
+      client_id: 'b9315bcd5a07fcd759d8',
+      client_secret: 'a2b698bf7e7c02f898197cf136d1a41f704ca8e4',
+      sort: 'created: asc',
+      per_page: 5
+    }
+  })
+    .then(response => {
+      // 处理响应数据
+      console.log(response.data, '请求的数据-----第二个接口');
+    })
+    .catch(error => {
+      // 处理错误情况
+      console.error(error);
+    });
+
+  
+
+</script>
